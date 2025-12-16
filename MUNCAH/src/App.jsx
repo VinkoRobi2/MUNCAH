@@ -13,8 +13,58 @@ import React from 'react'
 import  { useState } from 'react';
 import { motion } from 'framer-motion';
 
+import aus1 from "./assets/sponsor1.jpeg"
+import aus2 from "./assets/sponsor2.jpeg"
+import aus3 from "./assets/sponsor3.jpeg"
+import aus4 from "./assets/sponsor4.jpeg"
+import gabriel from "./assets/gabriel.jpeg"
+import jose from "./assets/jose.jpeg"
+import chris from "./assets/chris.jpeg"
 export default function App() {
   const [tab, setTab] = useState('home');
+  const sponsors = [
+    { id: 1, name: "Auspiciante 1", img: aus1 },
+    { id: 2, name: "Auspiciante 2", img: aus2 },
+    { id: 3, name: "Auspiciante 3", img: aus3 },
+    { id: 4, name: "Auspiciante 4", img: aus4 },
+  ];
+const teamMembers = [
+  {
+    name: "Gabriel Berrezueta",
+    role: "Secretario General",
+    img: gabriel,
+  },
+  {
+    name: "José Cabezas",
+    role: "Co-Secretario",
+    img: jose,
+  },
+  {
+    name: "Adriana Orellana",
+    role: "Presidenta del Comité Académico",
+    img: "adrianaImg",
+  },
+  {
+    name: "Isabella Jalón",
+    role: "Jefe de Prensa",
+    img: "isabellaImg",
+  },
+  {
+    name: "Christopher Gómez",
+    role: "Jefe de Seguridad",
+    img: chris,
+  },
+  {
+    name: "Romina Fierro",
+    role: "Jefe de Pager",
+    img: "rominaImg",
+  },
+  {
+    name: "Carlos Vargas",
+    role: "Coordinador Académico",
+    img: "carlosImg",
+  },
+];
 
   const headerLogo = (
     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" className="w-20 h-20">
@@ -104,9 +154,17 @@ export default function App() {
             <section>
               <h3 className="text-2xl font-semibold mb-4">Auspiciantes</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                {[1, 2, 3, 4].map((n) => (
-                  <motion.div key={n} whileHover={{ scale: 1.06 }} className="h-36 bg-white border rounded-lg flex items-center justify-center shadow-md">
-                    Auspiciante {n}
+                 {sponsors.map((sponsor) => (
+                  <motion.div
+                    key={sponsor.id}
+                    whileHover={{ scale: 1.06 }}
+                    className="h-36 bg-white border rounded-lg flex items-center justify-center shadow-md p-4"
+                  >
+                    <img
+                      src={sponsor.img}
+                      alt={sponsor.name}
+                      className="max-h-full max-w-full object-contain"
+                    />
                   </motion.div>
                 ))}
               </div>
@@ -232,34 +290,49 @@ export default function App() {
         )}
 
         {/* Team */}
-        {tab === 'team' && (
-          <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-            <h2 className="text-3xl font-bold border-b-4 border-red-600 pb-2">Nuestro Equipo</h2>
+        {/* Team */}
+            {tab === "team" && (
+              <motion.section
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="space-y-6"
+              >
+                <h2 className="text-3xl font-bold border-b-4 border-red-600 pb-2">
+                  Nuestro Equipo
+                </h2>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { name: 'Gabriel Berrezueta', role: 'Secretario General' },
-                { name: 'José Cabezas', role: 'Co-Secretario' },
-                { name: 'Adriana Orellana', role: 'Presidenta del Comité Académico' },
-                { name: 'Isabella Jalón', role: 'Jefe de Prensa' },
-                { name: 'Nombre Apellido', role: 'Jefe de Seguridad' },
-                { name: 'Romina Fierro', role: 'Jefe de Pager' },
-                { name: 'Carlos Vargas', role: 'Coordinador Académico' },
-              ].map((member, i) => (
-                <motion.div key={i} whileHover={{ y: -8 }} className="bg-white rounded-xl shadow-xl overflow-hidden border">
-                  <div className="h-48 bg-gray-300 flex items-center justify-center">Foto</div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-lg">{member.name}</h3>
-                    <p className="text-red-600 font-semibold">{member.role}</p>
-                    <p className="text-sm text-gray-600 mt-2">Descripción del cargo.</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
-        )}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {teamMembers.map((member, i) => (
+                    <motion.div
+                      key={i}
+                      whileHover={{ y: -8 }}
+                      className="bg-white rounded-xl shadow-xl overflow-hidden border"
+                    >
+                      {/* FOTO */}
+                      <div className="h-128 overflow-hidden">
+                        <img
+                          src={member.img}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
 
-        {/* Committees: 1..6 */}
+                      {/* INFO */}
+                      <div className="p-4">
+                        <h3 className="font-bold text-lg">{member.name}</h3>
+                        <p className="text-red-600 font-semibold">{member.role}</p>
+                        <p className="text-sm text-gray-600 mt-2">
+                          Descripción del cargo.
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.section>
+            )}
+
+
+
         {['committee1','committee2','committee3','committee4','committee5','committee6'].includes(tab) && (
           <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
             {tab === 'committee1' && (
